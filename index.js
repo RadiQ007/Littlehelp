@@ -13,7 +13,7 @@ const jwt = new google.auth.JWT(
 );
 let drive = google.drive('v3');
 
-//var APIS = require('./apis')(app)
+var APIS = require('./apis')(app)
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -294,6 +294,10 @@ app.get('/deleteFile', function(req, res){
     }
   });
   });
+});
+
+app.get('/contributors',function(req,res){
+  res.render("pages/contributors");
 });
 
 
