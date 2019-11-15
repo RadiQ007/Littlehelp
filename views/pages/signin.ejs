@@ -137,6 +137,45 @@
 			color: white;
 		}
 	</style>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<meta name="google-signin-client_id" content="798874771483-t80ceq40jphdtld7bihpp988476b4jjj.apps.googleusercontent.com">
+	<script src="https://apis.google.com/js/api:client.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	<script>
+	var googleUser = {};
+	var startApp = function() {
+	  gapi.load('auth2', function(){
+		// Retrieve the singleton for the GoogleAuth library and set up the client.
+		auth2 = gapi.auth2.init({
+		  client_id: '798874771483-t80ceq40jphdtld7bihpp988476b4jjj.apps.googleusercontent.com',
+		  cookiepolicy: 'single_host_origin',
+		  // Request scopes in addition to 'profile' and 'email'
+		  //scope: 'additional_scope'
+		});
+		attachSignin(document.getElementById('customBtn'));
+	  });
+	};
+  
+	function attachSignin(element) {
+	  console.log(element.id);
+	  auth2.attachClickHandler(element, {},
+		  function(googleUser) {
+		//	document.getElementById('name').innerText = "Signed in: " +
+		//		googleUser.getBasicProfile().getName();
+				var user = googleUser.getBasicProfile();
+				var userId =  user.getId();
+				var userName = user.getName();
+				var userEmail = user.getEmail();
+				var imageURL = user.getImageUrl();
+				$.get('/login?key=4JAN2017&userID='+userId+'&userName='+userName+'&userEmail='+userEmail+'&userImageURL='+imageURL, function(data,status){
+					console.log("Signed in");
+				});
+		  }, function(error) {
+			alert(JSON.stringify(error, undefined, 2));
+		  });
+	}
+	</script>
 </head>
 <body>
   	<% include ../partials/nav.ejs %>
@@ -147,20 +186,21 @@
 				<div class="card card-signin my-5">
 				  <div class="card-body">
 					  <h5 class="card-title text-center"><b>Sign In</b></h5>
-					<form class="form-signin" method="POST" action="/signin/">
+					<form class="form-signin" onsubmit="return false">
 					  <div class="form-label-group">
-						<input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+						<input disabled name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
 						<label for="inputEmail">Email address</label>
 					  </div>
 
 					  <div class="form-label-group">
-						<input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+						<input disabled name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
 						<label for="inputPassword">Password</label>
 					  </div>
-					  <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
+					  <button disabled class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
 					  <hr class="my-4">
-					  <button style="margin-bottom: 3%" class="btn btn-lg btn-google btn-block text-uppercase"><a href="signin/google/"><i class="fab fa-google mr-2"></i> Sign in with Google</a</button>
-					  <button class="btn btn-lg btn-facebook btn-block text-uppercase"><a href="signin/facebook/"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</a></button>
+					  <button id="customBtn" style="margin-bottom: 3%" class="btn btn-lg btn-google btn-block text-uppercase"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
+					  <button disabled class="btn btn-lg btn-facebook btn-block text-uppercase"><a href="signin/facebook/"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</a></button>
+					  <!-- <div id="name"></div> -->
 					</form>
 				  </div>
 				</div>
@@ -188,6 +228,7 @@
 	  $('#marker').stop().animate( {  left: left, width: width  }, 500 );
 	});
 	
+	startApp();
 
 	
 </script>
