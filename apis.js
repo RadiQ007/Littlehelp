@@ -193,6 +193,11 @@ module.exports = function(app){
                     msg.result = "success";
                     msg.login = "true";
                     msg.msg = Qres;
+
+
+                    req.session.user = req.query;
+
+
                     res.write(JSON.stringify(msg));
                     res.end();
                     return;

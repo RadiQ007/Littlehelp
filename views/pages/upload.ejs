@@ -84,6 +84,9 @@
                 <input type="hidden" id="actsem" name="actsem" value="any">
                 <input type="hidden" id="actbr" name="actbr" value="any">
                 <input type="hidden" id="acttype" name="acttype" value="any">
+                <input type="hidden" name="userId" value="<%= session.userID %>">
+                <input type="hidden" name="uploader" value="<%= session.userName %>">
+                <input type="hidden" name="timestamp" value ="<%= new Date().toISOString().slice(0, 19).replace('T', ' ') %>">
                 <button type="submit" class="btn btn-primary btn-md btn-block study-btn" style="margin-top: 50px;" >Submit</button>
               </form>
     </div>

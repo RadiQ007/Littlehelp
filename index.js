@@ -1,6 +1,16 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
+const session = require('express-session');
+
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'littlehelp123',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
+
 var formidable = require('formidable');
 const { google } = require('googleapis')
 const key = require("./credentials.json");
@@ -28,12 +38,14 @@ app.get('/', function(request, response) {
 });
 
 app.get('/upload', function(request, response) {
-  response.render('pages/upload');
+  if(request.session.user) response.render('pages/upload', {session: request.session});
+  else response.render('pages/signin');
 });
 
 
 app.get('/study', function(request, response) {
-  response.render('pages/study');
+  if(request.session.user) response.render('pages/study', {session: request.session});
+  else response.render('pages/signin');
 });
 
 
