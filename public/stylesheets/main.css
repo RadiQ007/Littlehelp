@@ -177,7 +177,7 @@ option{
 
 
   #marker{
-    display: none;
+    opacity: 0;
   }
 
   .img{
