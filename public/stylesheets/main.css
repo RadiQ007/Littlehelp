@@ -160,7 +160,8 @@ option{
   padding: 20px;
   background: #4CAF50;
   color: white;
-  margin: 20px 40px;
+  margin: 10px 25px;
+  width: 80%;
   cursor: pointer;
   overflow: hidden;
 }
@@ -176,6 +177,10 @@ option{
  
 
 
+  .file-enc{
+    margin-top: 60px;
+    width: 100%;
+  }
   #marker{
     opacity: 0;
   }
@@ -188,7 +193,7 @@ option{
 
 
   .desktop{
-    height: 50vh !important;
+    height: 45vh !important;
   }
 
   td{

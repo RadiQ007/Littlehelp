@@ -190,20 +190,23 @@
 				<div class="card card-signin my-5">
 				  <div class="card-body">
 					  <h5 class="card-title text-center"><b>Sign In</b></h5>
+					  <ul>
+						  <li class="error" style="color: red; display: none;">Sorry, we only support Google login at the moment.</li>
+					  </ul>
 					<form class="form-signin" onsubmit="return false">
 					  <div class="form-label-group">
-						<input disabled name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+						<input onclick="displayError()" onkeydown="displayError()" name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" >
 						<label for="inputEmail">Email address</label>
 					  </div>
 
 					  <div class="form-label-group">
-						<input disabled name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+						<input onclick="displayError()" onkeydown="displayError()" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" >
 						<label for="inputPassword">Password</label>
 					  </div>
 					  <button disabled class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
 					  <hr class="my-4">
 					  <button id="customBtn" style="margin-bottom: 3%" class="btn btn-lg btn-google btn-block text-uppercase"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
-					  <button disabled class="btn btn-lg btn-facebook btn-block text-uppercase"><a href="signin/facebook/"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</a></button>
+					  <button disabled class="btn btn-lg btn-facebook btn-block text-uppercase"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
 					  <!-- <div id="name"></div> -->
 					</form>
 				  </div>
@@ -215,6 +218,13 @@
 	
 </body>
 <script>
+
+	function displayError(){
+		$('.error').css('display','block');
+		$('#customBtn').focus();
+		return false;
+	}
+
 	$('.current').removeClass('current');
     $('.nav-item:nth-of-type(4)').addClass('current');
     var left = $('.current').offset().left + 10;

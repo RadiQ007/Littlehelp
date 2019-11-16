@@ -44,6 +44,7 @@ app.get('/upload', function(request, response) {
 
 
 app.get('/study', function(request, response) {
+ // request.session.user = "temp";
   if(request.session.user) response.render('pages/study', {session: request.session.user});
   else response.render('pages/signin');
 });
