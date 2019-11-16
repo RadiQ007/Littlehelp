@@ -37,6 +37,11 @@ app.get('/', function(request, response) {
   response.render('pages/index');
 });
 
+
+app.get('/contact', function(request, response) {
+  response.render('pages/contact');
+});
+
 app.get('/upload', function(request, response) {
   if(request.session.user) response.render('pages/upload', {session: request.session.user});
   else response.render('pages/signin');
@@ -56,6 +61,26 @@ app.get('/driver', function(request, response) {
 
 app.get('/signin', function(request,response){
 	response.render('pages/signin');
+});
+
+app.get('/feedback', function(req, res){
+  fs.readFile('feedback.txt', "utf8", function(err, data){
+    data = JSON.parse(data);
+    data.push(req.query);
+    fs.writeFile('feedback.txt', JSON.stringify(data), function(err){
+      if(err) {
+        console.log(err);
+        res.end('There was some error with the submission!');
+      }
+      res.end('Thank you, your feedback was succesfully submitted!');
+    });
+  });
+});
+
+app.get('/getFeedbacks', function(req, res){
+  fs.readFile('feedback.txt', "utf8", function(err, data){
+    res.end(data);
+  });
 });
 
 app.post('signin', function(request,response){
