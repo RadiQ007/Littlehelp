@@ -73,6 +73,15 @@ function checkValidity(key, value, constraints, allowedValues, msg, paramList){
 
 module.exports = function(app){
 
+
+    // app.get('/bogin', function(req, res){
+    //     req.session.user = req.query;
+    //     console.log(req.session);
+    //     req.session.save(function(err){
+    //         console.log(err);
+    //     });
+    // });
+
     app.get('/login', function(req,res){
         var msg = {};
 
@@ -85,6 +94,10 @@ module.exports = function(app){
         }
         delete req.query.key;
         msg.data = req.query;
+        req.session.user = req.query;
+        req.session.save(function(err) {
+            // session saved
+          })
         /*
             expected req paramaeter key
             : userID
