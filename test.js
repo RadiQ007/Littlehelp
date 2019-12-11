@@ -26,3 +26,21 @@ test('responds to requests', (t) => {
     });
   });
 });
+
+var request = require('supertest');
+var app = require(process.cwd() + '/app');
+
+describe('API pages', function(){
+    describe('GET /api/pages', function(){
+        it('vrati zoznam vsetkych poloziek v databazi', function(done){
+            request(app)
+                .get('/api/pages')
+                .expect(200)
+                .end(function(err, res) {
+                    res.body.length.should.eql(2);
+                    res.body[0].should.include({url:’abc’});
+                    done();
+                });
+        });
+    });
+});
