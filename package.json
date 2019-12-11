@@ -1,4 +1,14 @@
 {
+   "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "mocha": "1.6.x",
+    "supertest": "0.4.x",
+    "should": "1.2.x",
+    "horaa": "0.1.x"
+  }
+  
   "name": "littlehelp",
   "version": "1.0.0",
   "description": "A nodejs implementation for the Littlehelp Platform",
